@@ -1,0 +1,32 @@
+#!/bin/bash
+# Bash script from monaco
+# This bash script can grep any logs that you want, but this is built for ZNC.
+# This will not work from the get go you would need to change the directory paths.
+# Things you need to change are:
+# "directory=/...." - wich is the directory of the output of your logs.
+# "copy1=/..." - which is the direcotry of logs which u want to copy1.
+# "paste1=/..." - which is the directory that you want to generate your own output.
+# "messageo1=/..." - Don't modify the "$NOW" is a auto generated name for the output based on data and time, change only the directory path.
+# "reader1=/..." - Don't modify the "$NOW", put the directory of the paste output so you can read the data collected inside terminal session to.
+# "webpath1="https://example.tld/znclogs/..." put your own hostname here that you can read the data by only one click or share them.
+# In order for the script to work ./zncadv run "chmod +x zncadv" or simply run it by bash zncadv.
+# For this script to fetch the log data of ZNC, you need "LOG" Module on ZNC and "AdminLOG"
+# Enable it by typping this command at ZNC "/msg *adminlog target file"
+# The log data will be saved on urzncuser/.znc/moddata/adminlog/znc.log
+
+NOW=$(date +%Y%m%d)
+directory=/var/www/htdocs/znclogs
+delra=/var/www/htdocs/znclogs/index.html
+copy1=/home/znc/.znc/moddata/adminlog/znc.log
+paste1=/var/www/htdocs/znclogs/$NOW.txt
+messageo1=/var/www/htdocs/znclogs/$NOW.txt
+reader1=/var/www/htdocs/znclogs/$NOW.txt
+webpath1=https://example.tdl/znclogs/$NOW.txt
+
+mkdir $directory
+rm -rf $delra
+cat -benstv $copy1 >> $paste1
+echo "You're logs has been saved now at $messageo1";
+echo "Terminal output for the logs";
+cat $reader1
+echo "Visit the data or share them with people you trust: $webpath1 ";
